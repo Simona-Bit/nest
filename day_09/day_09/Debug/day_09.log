@@ -1,0 +1,27 @@
+﻿生成启动时间为 2019/4/21 星期日 21:20:31。
+     1>项目“D:\Visual Studio 2013\比特\day_09\day_09\day_09.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         D:\Visual Studio 2013\安装包\Visual Studio2013\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt "扫雷.c"
+         扫雷.c
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(4): error C2065: “MAX_ROW”: 未声明的标识符
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(4): error C2057: 应输入常量表达式
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(4): error C2466: 不能分配常量大小为 0 的数组
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(4): error C2065: “MAX_COL”: 未声明的标识符
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(4): error C2087: “map”: 缺少下标
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(5): error C2065: “MAX_ROW”: 未声明的标识符
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(6): error C2065: “MAX_COL”: 未声明的标识符
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(13): error C2065: “MAX_ROW”: 未声明的标识符
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(13): error C2057: 应输入常量表达式
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(13): error C2466: 不能分配常量大小为 0 的数组
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(13): error C2065: “MAX_COL”: 未声明的标识符
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(13): error C2087: “show_map”: 缺少下标
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(14): error C2065: “MAX_ROW”: 未声明的标识符
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(14): error C2057: 应输入常量表达式
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(14): error C2466: 不能分配常量大小为 0 的数组
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(14): error C2065: “MAX_COL”: 未声明的标识符
+     1>d:\visual studio 2013\比特\day_09\day_09\扫雷.c(14): error C2087: “mine_map”: 缺少下标
+     1>已完成生成项目“D:\Visual Studio 2013\比特\day_09\day_09\day_09.vcxproj”(Build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:01.26
