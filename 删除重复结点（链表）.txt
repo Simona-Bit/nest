@@ -1,0 +1,71 @@
+//题：在一个排序的链表中，存在重复的结点，
+//请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。
+//例如，链表1->2->3->3->4->4->5 处理后为 1->2->5
+    //方法一：增添新结点
+    public Node deleteDuplication(Node pHead){
+		if(pHead == null){
+			return null;
+		}
+		Node prev = new Node(0);
+		prev.next = pHead;
+		Node fake = prev; 
+		Node p1 = pHead;
+		Node p2 = pHead.next;
+		
+		while(p2 != null){
+			if(p1.val != p2.val){
+				prev = prev.next;
+				p1 = p1.next;
+				p2 = p2.next;
+			}else{
+				//或者 p2 为空、或者 p2.val != p1.val
+				while(p2 != null && p2.val == p1.val){
+					p2 = p2.next;
+				}
+				
+				//删除[p1,p2)的所有结点
+				prev.next = p2;
+				p1 = p2;
+				//if(p2 == null){break;}
+				if(p2 != null){
+					p2 = p2.next;
+				}
+			}
+		}
+		return fake.next;
+	}
+
+    //方法二：
+	public Node deleteDuplication(Node pHead){
+		if(pHead == null){
+			return null;
+		}
+		Node prev = null;
+		Node p1 = pHead;
+		Node p2 = pHead.next;
+		
+		while(p2 != null){
+			if(p1.val != p2.val){
+				prev = prev.next;
+				p1 = p1.next;
+				p2 = p2.next;
+			}else{
+				//或者 p2 为空、或者 p2.val != p1.val
+				while(p2 != null && p2.val == p1.val){
+					p2 = p2.next;
+				}
+				
+				//删除[p1,p2)的所有结点
+				if(prev == null){
+					pHead = p2;
+				}else{
+					prev.next = p2;
+				}
+				//if(p2 == null){break;}
+				if(p2 != null){
+					p2 = p2.next;
+				}
+			}
+		}
+		return pHead;
+	}
