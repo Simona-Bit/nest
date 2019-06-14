@@ -1,0 +1,29 @@
+public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        int lenA = getLength(headA);
+        int lenB = getLength(headB);
+        
+        ListNode longList = headA;
+        ListNode shortList = headB;
+        int diff = lenA - lenB;
+        if (lenA < lenB) {
+            longList = headB;
+            shortList = headA;
+            diff = lenB - lenA;
+        }
+        
+        
+        // 让长的先走 diff 步
+        for (int i = 0; i < diff; i++) {
+            longList = longList.next;
+        }
+        
+        // 同时前进，直到 longList == shortList
+        // 可能 都 == null，表示没有交叉
+        while (longList != shortList) {
+            longList = longList.next;
+            shortList = shortList.next;
+        }
+        
+        return longList;
+    }
+	
