@@ -1,0 +1,186 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define L 1
+#define R 0
+#define m 100
+#include<stdio.h>
+#include<malloc.h>
+#define null 0
+
+typedef char TElemType;
+typedef int Status;
+typedef struct BiTNode{
+	TElemType data;
+	struct BiTNode*lchild, *rchild;
+}BiTNode,*BiTree;
+typedef BiTree datatype;
+typedef struct{
+	datatype s[m];
+	int top;
+}sqstack;
+
+typedef char tagtype;
+typedef struct{
+	datatype ptr;
+	tagtype tag;
+}stacknode;
+
+typedef struct{
+	stacknode a[m];
+	int top;
+}sqstack2;
+
+Status CreateBiTree(BiTree*T){
+	char ch;
+	ch = getchar();
+	if (ch == '#')
+		(*T) = null;
+	else{
+		(*T) = (BiTree)malloc(sizeof(BiTNode));
+		(*T)->data = ch;
+		CreateBiTree(&(*T)->lchild);
+		CreateBiTree(&(*T)->rchild);
+	}
+	return 1;
+}
+
+void StackInit1(sqstack*stack){
+	int i;
+	for (i = 1; i < m; i++){
+		(*stack).s[m] = null;
+		(*stack).top = 0;
+	}
+}
+Status StackEmpty(sqstack stack){
+	if (stack.top == 0)
+		return 1;
+	else
+		return 0;
+}
+
+void Visit(TElemType e){
+	printf("%c", e);
+}
+
+void Push1(sqstack *stack, datatype x){
+	if ((*stack).top == m - 1)
+		printf("The Stack is overflow!");
+	else{
+		(*stack).top = (*stack).top + 1;
+		(*stack).s[(*stack).top] = x;
+	}
+}
+
+datatype Pop1(sqstack *stack){
+	datatype y;
+	if ((*stack).top == 0)
+		printf("The Stack is overflow!");
+	else{
+		y = (*stack).s[(*stack).top];
+		(*stack).top = (*stack).top - 1;
+		return y;
+	}
+}
+
+void PreOrderBiTree(datatype t){
+	datatype p = t;
+	sqstack s;
+	StackInit1(&s);
+	while (p != null || !StackEmpty(s)){
+		while (p != null){
+			Visit(p->data);
+			Push1(&s, p);
+			p = p->lchild;
+		}
+		if (!StackEmpty(s)){
+			p = Pop1(&s);
+			p = p->rchild;
+		}/*endif*/
+	}
+}
+
+void InOrderBiTree(datatype t){
+	datatype p = t;
+	sqstack s;
+	StackInit1(&s);
+	while (p != null || !StackEmpty(s)){
+		while (p != null){
+			Push1(&s, p);
+			p = p->lchild;
+		}
+		if (!StackEmpty(s)){
+			p = Pop1(&s);
+			Visit(p->data);
+			p = p->rchild;
+		}
+	}
+}
+
+void StackInit2(sqstack2 *stack){
+	(*stack).top = 0;
+}
+
+Status StackEmpty2(sqstack2 stack){
+	if (stack.top == 0)
+		return 1;
+	else
+		return 0;
+}
+
+void Push2(sqstack2 *stack, stacknode x){
+	if ((*stack).top == m - 1)
+		printf("The Stack is overflow!");
+	else{
+		(*stack).top = (*stack).top + 1;
+		(*stack).a[(*stack).top] = x;
+	}
+}
+
+stacknode Pop2(sqstack2 *stack){
+	stacknode y;
+	if ((*stack).top == 0)
+		printf("The Stack is overflow!");
+	else{
+		y = (*stack).a[(*stack).top];
+		(*stack).top = (*stack).top - 1;
+		return y;
+	}
+}
+
+void PostOrderBiTree(datatype t){
+	datatype p = t;
+	sqstack2 s;
+	stacknode x;
+	StackInit2(&s);
+	do{
+		while (p != null){
+			x.ptr = p;
+			x.tag = L;
+			Push2(&s, x);
+			p = p->lchild;
+		}
+		while (!StackEmpty2(s) && s.a[s.top].tag==R){
+			x = Pop2(&s);
+			p = x.ptr;
+			Visit(p->data);
+		}
+		if (!StackEmpty2(s)){
+			s.a[s.top].tag = R;
+			p = s.a[s.top].ptr->rchild;
+		}
+	}
+	while (!StackEmpty2(s));
+}
+
+void main(){
+	BiTree T = null;
+	printf("\nCreate a Binary Tree in PreOrder\n");
+	CreateBiTree(&T);
+	printf("\nThe PreOrder of the Binary Tree is:\n");
+    PreOrderBiTree(T);
+	printf("\n");
+	printf("\nThe InOrder of the Binary Tree is:\n");
+	InOrderBiTree(T);
+	printf("\n");
+	printf("\nThe PostOrder of the Binary Tree is:\n");
+	PostOrderBiTree(T);
+}
