@@ -1,0 +1,91 @@
+/* 1.输出控制台传递的默认参数
+ */
+
+public class JavaDay001_1 {
+
+ 
+    public static void main(String[] args) {
+
+ 
+        System.out.println(args);
+
+    }
+
+}
+
+
+/* 2.编程求表达式的结果
+ */
+
+public class JavaDay001_2 {
+
+ 
+    public static void main(String[] args) {
+
+        System.out.println("128 & 129 = " + (128 & 129));
+
+        System.out.println("56 | 32 = " + (56 | 32));
+
+        System.out.println("27 ^ 123 = " + (27 ^ 123));
+
+    }
+
+}
+
+/* 3.从键盘上输入3个数，求出这三个数字中的最大值，并将最大值输出
+ */
+
+import java.util.Scanner;
+public class JavaDay001_3 {
+
+    public static void main(String[] args) {
+
+        System.out.println("请输入3个数：");
+
+        Scanner scanner = new Scanner(System.in);
+
+        int nNumA = scanner.nextInt();
+
+        int nNumB = scanner.nextInt();
+
+        int nNumC = scanner.nextInt();
+
+ 
+        int nMax = 0;
+
+        if (nNumA >= nNumB && nNumA >= nNumC)
+        {
+
+            nMax = nNumA;
+
+        }
+
+        else if (nNumB >= nNumC && nNumB >= nNumA)
+        {
+
+            nMax = nNumB;
+
+        }
+
+        else if (nNumC >= nNumA && nNumC >= nNumB)
+        {
+
+            nMax = nNumC;
+
+        }
+
+        else
+        {
+
+            System.out.println("无法比较!");
+
+        }
+
+        System.out.println("Max = " + nMax);
+
+    }
+
+}
+ 
+ 
+
