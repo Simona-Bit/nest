@@ -1,0 +1,80 @@
+b=[500 600 700 800 900];   %预计销售
+a=[19 20 21];  %定价
+x1=rand;  %概率
+if x1<=0.5
+    c=7;
+elseif x1>0.5&&x1<=0.2
+    c=8;
+elseif x1>0.2&&x1<=0.4
+    c=9;
+elseif x1>0.4&&x1<=0.7
+    c=10;
+elseif x1>0.7&&x1<=0.95
+    c=11;
+elseif x1>0.95&&x1<=1
+    c=12;
+end
+x2=rand;  %概率在定价为19时
+if x2<=0.05
+    d=500;
+elseif x2>0.05&&x2<=0.2
+    d=600;
+elseif x2>0.2&&x2<=0.6
+    d=700;
+elseif x2>0.6&&x2<=0.85
+    d=800;
+else
+    d=900;
+end
+x3=rand;  %概率在定价为20时
+if x3<=0.3
+    e=500;
+elseif x3>0.3&&x3<=0.5
+    e=600;
+elseif x3>0.5&&x3<=0.7
+    e=700;
+elseif x3>0.7&&x3<=0.9
+    e=800;
+else
+    e=900;
+end
+x4=rand;  %概率在定价为21时
+if x4<=0.2
+    f=500;
+elseif x4>0.2&&x4<=0.5
+    f=600;
+elseif x4>0.5&&x4<=0.85
+    f=700;
+elseif x4>0.85&&x4<=0.95
+    f=800;
+else
+    f=900;
+end
+for i=1:5
+    for j=1:3
+        b(i);
+        a(j);
+        if b(i)<d
+            z=b(i)*a(j)-c*b(i);
+        else
+            z=d*a(j)-c*b(i)+(b(i)-d)*5;
+        end
+        if b(i)<e
+            w=b(i)*a(j)-c*b(i);
+        else
+            w=e*a(j)-c*b(i)+(b(i)-e)*5;
+        end
+        if b(i)<f
+            v=b(i)*a(j)-c*b(i);
+        else
+            v=f*a(j)-c*b(i)+(b(i)-f)*5;
+        end
+    end
+end
+c   %单价成本
+d   %订购量在定价为19时
+e   %订购量在定价为20时
+f   %订购量在定价为21时
+z   %利润19
+w   %利润20
+v   %利润21
