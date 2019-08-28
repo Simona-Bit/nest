@@ -1,0 +1,19 @@
+  //判断两个树是否相同
+    public static boolean isSameTree(Node p, Node q) {
+        if (p == null || q == null) {
+            if (p == null && q == null) {
+                return true;
+            }
+            return false;
+        }
+        return p.value == q.value
+                && isSameTree(p.left, q.left)
+                && isSameTree(p.right, q.right);
+    }s
+    //判断是否为另一个树的子树（相同或包含，相同已写，在此判断包含）
+    public static boolean isSubTree(Node p, Node q){
+        if (p == null){
+            return false;
+        }
+        return isSameTree(p, q)|| isSubTree(p.left, q)|| isSubTree(p.right, q);
+    }
