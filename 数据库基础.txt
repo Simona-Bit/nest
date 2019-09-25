@@ -1,0 +1,798 @@
+cmd…œµƒƒ⁄»›£∫
+Microsoft Windows [∞Ê±æ 10.0.17134.1]
+(c) 2018 Microsoft Corporation°£±£¡ÙÀ˘”–»®¿˚°£
+
+C:\Users\Administrator>mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 6
+Server version: 5.7.27 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.04 sec)
+
+mysql> drop database test;
+ERROR 1008 (HY000): Can't drop database 'test'; database doesn't exist
+mysql> create database test character set utf8mb4;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use test;
+Database changed
+mysql> create table studen(
+    -> sn int,
+    -> name varchar(20),
+    -> accout decimal(11,2),
+    -> sgroup int
+    -> );
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> insert into student(sn,name,accout,sgroup) values
+    -> (1,'ÀÔŒÚø’',100.50,3);
+ERROR 1146 (42S02): Table 'test.student' doesn't exist
+mysql> create table studen(
+    -> sn int,
+    -> name varchar(20),
+    -> accout decimal(11,2),
+    -> sgroup int
+    -> );
+ERROR 1050 (42S01): Table 'studen' already exists
+mysql> create table student(
+    -> sn int,
+    -> name varchar(20),
+    -> accout decimal(11,2),
+    -> sgroup int
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into student(sn,name,accout,sgroup) values
+    -> (1,'ÀÔŒÚø’',100.50,3);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into student(sn,name,accout,sgroup) values
+    -> (2,'÷Ì∞ÀΩ‰',57.50,3),
+    -> (3,'…≥∫Õ…–',89.3,3),
+    -> (4,'∫£√‡±¶±¶',99.4,2);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++------+--------------+--------+--------+
+| sn   | name         | accout | sgroup |
++------+--------------+--------+--------+
+|    1 | ÀÔŒÚø’       | 100.50 |      3 |
+|    2 | ÷Ì∞ÀΩ‰       |  57.50 |      3 |
+|    3 | …≥∫Õ…–       |  89.30 |      3 |
+|    4 | ∫£√‡±¶±¶     |  99.40 |      2 |
++------+--------------+--------+--------+
+4 rows in set (0.01 sec)
+
+mysql> select sn,name,accout from student;
++------+--------------+--------+
+| sn   | name         | accout |
++------+--------------+--------+
+|    1 | ÀÔŒÚø’       | 100.50 |
+|    2 | ÷Ì∞ÀΩ‰       |  57.50 |
+|    3 | …≥∫Õ…–       |  89.30 |
+|    4 | ∫£√‡±¶±¶     |  99.40 |
++------+--------------+--------+
+4 rows in set (0.02 sec)
+
+mysql> select sn,name,accout+200 from student;
++------+--------------+------------+
+| sn   | name         | accout+200 |
++------+--------------+------------+
+|    1 | ÀÔŒÚø’       |     300.50 |
+|    2 | ÷Ì∞ÀΩ‰       |     257.50 |
+|    3 | …≥∫Õ…–       |     289.30 |
+|    4 | ∫£√‡±¶±¶     |     299.40 |
++------+--------------+------------+
+4 rows in set (0.01 sec)
+
+mysql> select sn,name,accout+200 as acc from student;
++------+--------------+--------+
+| sn   | name         | acc    |
++------+--------------+--------+
+|    1 | ÀÔŒÚø’       | 300.50 |
+|    2 | ÷Ì∞ÀΩ‰       | 257.50 |
+|    3 | …≥∫Õ…–       | 289.30 |
+|    4 | ∫£√‡±¶±¶     | 299.40 |
++------+--------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select sn,name,accout+200 acc from student;
++------+--------------+--------+
+| sn   | name         | acc    |
++------+--------------+--------+
+|    1 | ÀÔŒÚø’       | 300.50 |
+|    2 | ÷Ì∞ÀΩ‰       | 257.50 |
+|    3 | …≥∫Õ…–       | 289.30 |
+|    4 | ∫£√‡±¶±¶     | 299.40 |
++------+--------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select sn,name,accout+sn acc from student;
++------+--------------+--------+
+| sn   | name         | acc    |
++------+--------------+--------+
+|    1 | ÀÔŒÚø’       | 101.50 |
+|    2 | ÷Ì∞ÀΩ‰       |  59.50 |
+|    3 | …≥∫Õ…–       |  92.30 |
+|    4 | ∫£√‡±¶±¶     | 103.40 |
++------+--------------+--------+
+4 rows in set (0.02 sec)
+
+mysql> create table exam_result(
+    -> id int,
+    -> sn int,
+    -> name varchar(20),
+    -> chinese float,
+    -> english float,
+    -> computer float
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into exam_result(id,sn,name,chinese,english,computer)
+    -> values
+    -> (1,1,'’≈»˝',91,65.3,32.8),
+    -> (1,2,'≈÷ª¢',89.7,99,83.6);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from exam_result;
++------+------+--------+---------+---------+----------+
+| id   | sn   | name   | chinese | english | computer |
++------+------+--------+---------+---------+----------+
+|    1 |    1 | ’≈»˝   |      91 |    65.3 |     32.8 |
+|    1 |    2 | ≈÷ª¢   |    89.7 |      99 |     83.6 |
++------+------+--------+---------+---------+----------+
+2 rows in set (0.02 sec)
+
+mysql> select sn,name from exam_result;
++------+--------+
+| sn   | name   |
++------+--------+
+|    1 | ’≈»˝   |
+|    2 | ≈÷ª¢   |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> -- ¥¥Ω®øº ‘≥…º®±Ì
+mysql> DROP TABLE IF EXISTS exam_result;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE exam_result (
+    -> id INT,
+    -> name VARCHAR(20),
+    -> chinese DECIMAL(3,1),
+    -> math DECIMAL(3,1),
+    -> english DECIMAL(3,1)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> -- ≤Â»Î≤‚ ‘ ˝æ›
+mysql> INSERT INTO exam_result (name, chinese, math, english) VALUES
+    -> ('Ã∆»˝≤ÿ', 67, 98, 56),
+    -> ('ÀÔŒÚø’', 87.5, 78, 77),
+    -> ('÷ÌŒÚƒ‹', 88, 98.5, 90),
+    -> ('≤‹√œµ¬', 82, 84, 67),
+    -> ('¡ı–˛µ¬', 55.5, 85, 45),
+    -> ('ÀÔ»®', 70, 73, 78.5),
+    -> ('ÀŒπ´√˜', 75, 65, 30);
+Query OK, 7 rows affected (0.10 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++----------------+
+| Tables_in_test |
++----------------+
+| exam_result    |
+| studen         |
+| student        |
++----------------+
+3 rows in set (0.00 sec)
+
+mysql> -- ¥¥Ω®øº ‘≥…º®±Ì
+mysql> DROP TABLE IF EXISTS exam_result;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE exam_result (
+    -> id INT,
+    -> name VARCHAR(20),
+    -> chinese DECIMAL(3,1),
+    -> math DECIMAL(3,1),
+    -> english DECIMAL(3,1)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> -- ≤Â»Î≤‚ ‘ ˝æ›
+mysql> INSERT INTO exam_result (name, chinese, math, english) VALUES
+    -> ('Ã∆»˝≤ÿ', 67, 98, 56),
+    -> ('ÀÔŒÚø’', 87.5, 78, 77),
+    -> ('÷ÌŒÚƒ‹', 88, 98.5, 90),
+    -> ('≤‹√œµ¬', 82, 84, 67),
+    -> ('¡ı–˛µ¬', 55.5, 85, 45),
+    -> ('ÀÔ»®', 70, 73, 78.5),
+    -> ('ÀŒπ´√˜', 75, 65, 30);
+Query OK, 7 rows affected (0.04 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++----------------+
+| Tables_in_test |
++----------------+
+| exam_result    |
+| studen         |
+| student        |
++----------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from exam_result;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | Ã∆»˝≤ÿ    |    67.0 | 98.0 |    56.0 |
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
+| NULL | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select * from student;
++------+--------------+--------+--------+
+| sn   | name         | accout | sgroup |
++------+--------------+--------+--------+
+|    1 | ÀÔŒÚø’       | 100.50 |      3 |
+|    2 | ÷Ì∞ÀΩ‰       |  57.50 |      3 |
+|    3 | …≥∫Õ…–       |  89.30 |      3 |
+|    4 | ∫£√‡±¶±¶     |  99.40 |      2 |
++------+--------------+--------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct sgroup from student;
++--------+
+| sgroup |
++--------+
+|      3 |
+|      2 |
++--------+
+2 rows in set (0.04 sec)
+
+mysql> select distinct sgroup,sn,name from student;
++--------+------+--------------+
+| sgroup | sn   | name         |
++--------+------+--------------+
+|      3 |    1 | ÀÔŒÚø’       |
+|      3 |    2 | ÷Ì∞ÀΩ‰       |
+|      3 |    3 | …≥∫Õ…–       |
+|      2 |    4 | ∫£√‡±¶±¶     |
++--------+------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from exam_result order by chinese asc;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
+| NULL | Ã∆»˝≤ÿ    |    67.0 | 98.0 |    56.0 |
+| NULL | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
++------+-----------+---------+------+---------+
+7 rows in set (0.04 sec)
+
+mysql> select * from exam_result order by chinese desc;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
+| NULL | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+| NULL | Ã∆»˝≤ÿ    |    67.0 | 98.0 |    56.0 |
+| NULL | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
++------+-----------+---------+------+---------+
+7 rows in set (0.00 sec)
+
+mysql> seclet id+115,name,chinese,math,english from exam_result;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'seclet id+115,name,chinese,math,english from exam_result' at line 1
+mysql> select * from student where sgroup=3;
++------+-----------+--------+--------+
+| sn   | name      | accout | sgroup |
++------+-----------+--------+--------+
+|    1 | ÀÔŒÚø’    | 100.50 |      3 |
+|    2 | ÷Ì∞ÀΩ‰    |  57.50 |      3 |
+|    3 | …≥∫Õ…–    |  89.30 |      3 |
++------+-----------+--------+--------+
+3 rows in set (0.01 sec)
+
+mysql> select * from exam_result where chinese>80;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
++------+-----------+---------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select id,name,chinese+math+english from exam_result where chinese+math+english>200;
++------+-----------+----------------------+
+| id   | name      | chinese+math+english |
++------+-----------+----------------------+
+| NULL | Ã∆»˝≤ÿ    |                221.0 |
+| NULL | ÀÔŒÚø’    |                242.5 |
+| NULL | ÷ÌŒÚƒ‹    |                276.5 |
+| NULL | ≤‹√œµ¬    |                233.0 |
+| NULL | ÀÔ»®      |                221.5 |
++------+-----------+----------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from exam_result where chinese between 70 and 85;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from exam_result;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | Ã∆»˝≤ÿ    |    67.0 | 98.0 |    56.0 |
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
+| NULL | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select * from student;
++------+--------------+--------+--------+
+| sn   | name         | accout | sgroup |
++------+--------------+--------+--------+
+|    1 | ÀÔŒÚø’       | 100.50 |      3 |
+|    2 | ÷Ì∞ÀΩ‰       |  57.50 |      3 |
+|    3 | …≥∫Õ…–       |  89.30 |      3 |
+|    4 | ∫£√‡±¶±¶     |  99.40 |      2 |
++------+--------------+--------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student where sn between 2 and 4;
++------+--------------+--------+--------+
+| sn   | name         | accout | sgroup |
++------+--------------+--------+--------+
+|    2 | ÷Ì∞ÀΩ‰       |  57.50 |      3 |
+|    3 | …≥∫Õ…–       |  89.30 |      3 |
+|    4 | ∫£√‡±¶±¶     |  99.40 |      2 |
++------+--------------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student where sn in (2,4);
++------+--------------+--------+--------+
+| sn   | name         | accout | sgroup |
++------+--------------+--------+--------+
+|    2 | ÷Ì∞ÀΩ‰       |  57.50 |      3 |
+|    4 | ∫£√‡±¶±¶     |  99.40 |      2 |
++------+--------------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from exam_result;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | Ã∆»˝≤ÿ    |    67.0 | 98.0 |    56.0 |
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
+| NULL | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select * from exam_result where id is null;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | Ã∆»˝≤ÿ    |    67.0 | 98.0 |    56.0 |
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
+| NULL | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select * from exam_result where id is not null;
+Empty set (0.00 sec)
+
+mysql> select * from exam_result where name='ÀÔŒÚø’';
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
++------+-----------+---------+------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from exam_result where name like 'ÀÔ%';
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
++------+-----------+---------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from exam_result where chinese>70 and chinese<85;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from exam_result where chinese>70 and math<85;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from exam_result where chinese>70 and (math<85 or english>60);
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from exam_result where chinese>70 and (math<85 and english>60);
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
++------+-----------+---------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select math from exam_result;
++------+
+| math |
++------+
+| 98.0 |
+| 78.0 |
+| 98.5 |
+| 84.0 |
+| 85.0 |
+| 73.0 |
+| 65.0 |
++------+
+7 rows in set (0.00 sec)
+
+mysql> select distinct math from exam_result;
++------+
+| math |
++------+
+| 98.0 |
+| 78.0 |
+| 98.5 |
+| 84.0 |
+| 85.0 |
+| 73.0 |
+| 65.0 |
++------+
+7 rows in set (0.00 sec)
+
+mysql> select distinct math from exam_result;
++------+
+| math |
++------+
+| 98.0 |
+| 78.0 |
+| 98.5 |
+| 84.0 |
+| 85.0 |
+| 73.0 |
+| 65.0 |
++------+
+7 rows in set (0.01 sec)
+
+mysql> select * from exam_result where chinese>70 and (math<85 and english>60) order by math;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
++------+-----------+---------+------+---------+
+2 rows in set (0.01 sec)
+
+mysql> select * from exam_result where chinese>70 and (math<85 and english>60) order by math desc;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
++------+-----------+---------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> desc exam_result;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| id      | int(11)      | YES  |     | NULL    |       |
+| name    | varchar(20)  | YES  |     | NULL    |       |
+| chinese | decimal(3,1) | YES  |     | NULL    |       |
+| math    | decimal(3,1) | YES  |     | NULL    |       |
+| english | decimal(3,1) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+5 rows in set (0.03 sec)
+
+mysql> select * from exam_result;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | Ã∆»˝≤ÿ    |    67.0 | 98.0 |    56.0 |
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
+| NULL | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select * from exam_result limit 3;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | Ã∆»˝≤ÿ    |    67.0 | 98.0 |    56.0 |
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
++------+-----------+---------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from exam_result limit 3,5;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
+| NULL | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from exam_result limit 3 offset 5;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from exam_result limit 5 offset 3;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
+| NULL | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from exam_result where (name like '%µ¬' or name like 'ÀÔ%') and (math>75 or english<70);
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
++------+-----------+---------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from exam_result where name like 'ÀÔ_';
++------+--------+---------+------+---------+
+| id   | name   | chinese | math | english |
++------+--------+---------+------+---------+
+| NULL | ÀÔ»®   |    70.0 | 73.0 |    78.5 |
++------+--------+---------+------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from exam_result where name like 'ÀÔ%';
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
++------+-----------+---------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from exam_result;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+| NULL | Ã∆»˝≤ÿ    |    67.0 | 98.0 |    56.0 |
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
+| NULL | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+7 rows in set (0.00 sec)
+
+mysql> update exam_result set id=1 where name='Ã∆»˝≤ÿ';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from exam_result;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+|    1 | Ã∆»˝≤ÿ    |    67.0 | 98.0 |    56.0 |
+| NULL | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+| NULL | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
+| NULL | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+| NULL | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
+| NULL | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+| NULL | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+7 rows in set (0.00 sec)
+
+mysql> update exam_result set id=1;
+Query OK, 6 rows affected (0.01 sec)
+Rows matched: 7  Changed: 6  Warnings: 0
+
+mysql> select * from exam_result;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+|    1 | Ã∆»˝≤ÿ    |    67.0 | 98.0 |    56.0 |
+|    1 | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+|    1 | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
+|    1 | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+|    1 | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
+|    1 | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+|    1 | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+7 rows in set (0.00 sec)
+
+mysql> update exam_result set id=2,chinese=70 where name='Ã∆»˝≤ÿ';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from exam_result;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+|    2 | Ã∆»˝≤ÿ    |    70.0 | 98.0 |    56.0 |
+|    1 | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+|    1 | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
+|    1 | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+|    1 | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
+|    1 | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+|    1 | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+7 rows in set (0.00 sec)
+
+mysql> update exam_result set id=2,chinese=math-20 where name='Ã∆»˝≤ÿ';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from exam_result;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+|    2 | Ã∆»˝≤ÿ    |    78.0 | 98.0 |    56.0 |
+|    1 | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+|    1 | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
+|    1 | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+|    1 | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
+|    1 | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+|    1 | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+7 rows in set (0.00 sec)
+
+mysql> update exam_result set id=3 where math>80 limit 2,3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '3' at line 1
+mysql> update exam_result set id=3 where math>80 limit 2;
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from exam_result;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+|    3 | Ã∆»˝≤ÿ    |    78.0 | 98.0 |    56.0 |
+|    1 | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+|    3 | ÷ÌŒÚƒ‹    |    88.0 | 98.5 |    90.0 |
+|    1 | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+|    1 | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
+|    1 | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+|    1 | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+7 rows in set (0.00 sec)
+
+mysql> delete from exam_result where id=3;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> select * from exam_result;
++------+-----------+---------+------+---------+
+| id   | name      | chinese | math | english |
++------+-----------+---------+------+---------+
+|    1 | ÀÔŒÚø’    |    87.5 | 78.0 |    77.0 |
+|    1 | ≤‹√œµ¬    |    82.0 | 84.0 |    67.0 |
+|    1 | ¡ı–˛µ¬    |    55.5 | 85.0 |    45.0 |
+|    1 | ÀÔ»®      |    70.0 | 73.0 |    78.5 |
+|    1 | ÀŒπ´√˜    |    75.0 | 65.0 |    30.0 |
++------+-----------+---------+------+---------+
+5 rows in set (0.00 sec)
+
+mysql> distinct math from exam_result;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'distinct math from exam_result' at line 1
+mysql> select math from exam_result;
++------+
+| math |
++------+
+| 78.0 |
+| 84.0 |
+| 85.0 |
+| 73.0 |
+| 65.0 |
++------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student where sn in (2,4);
++------+--------------+--------+--------+
+| sn   | name         | accout | sgroup |
++------+--------------+--------+--------+
+|    2 | ÷Ì∞ÀΩ‰       |  57.50 |      3 |
+|    4 | ∫£√‡±¶±¶     |  99.40 |      2 |
++------+--------------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student where sn=2 or sn=4;
++------+--------------+--------+--------+
+| sn   | name         | accout | sgroup |
++------+--------------+--------+--------+
+|    2 | ÷Ì∞ÀΩ‰       |  57.50 |      3 |
+|    4 | ∫£√‡±¶±¶     |  99.40 |      2 |
++------+--------------+--------+--------+
+2 rows in set (0.00 sec)
