@@ -1,0 +1,24 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner scan = new Scanner(System.in);
+        while(scan.hasNext()){
+            int n = scan.nextInt();
+            if(n == 0){
+                break;
+            }
+            System.out.println(f(n));
+        }
+        scan.close();
+    }
+    public static int f(int n){
+        if(n < 3){
+            return n == 1?0:1;
+        }
+        int count = 0;
+        int d = n/3;
+        int m = n%3 + d;
+        count += d+f(m);
+        return count;
+    }
+}
