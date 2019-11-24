@@ -1,0 +1,44 @@
+import java.util.Stack;
+
+public class Solution {
+
+    //思路：将stack1当做入队列，将stack2当做出队列，当队列需要push入队列一个元素的时候，直接push到stack1就可以了；当队列需要pop出队列时
+    
+//，首先判断stack2是否为空，如果为空，则将stack1中的元素全部pop出来并依次push到stack2中，再让stack2来pop一下就可以了；如果不为空，stack2直接pop一下就行。
+
+    Stack<Integer> stack1 = new Stack<Integer>();
+
+    Stack<Integer> stack2 = new Stack<Integer>();
+
+    public void push(int node) {
+ 
+       stack1.push(node);
+
+    }
+
+    public int pop() {
+
+        if (stack2.size() == 0) {
+
+            while (!stack1.empty()) {
+
+                stack2.push(stack1.pop());
+
+            }
+
+        }
+
+        if (stack2.size() == 0) {
+//当stack1和stack2都长度为0的时候，运行到这里还是会出现stack2的长度为0，所以要做异常处理
+
+            System.out.println("stack1和stack2的长度都为0，不能进行pop操作，抛出异常");
+
+            return -1;
+ 
+       }
+ 
+       return stack2.pop();
+
+    }
+
+}
