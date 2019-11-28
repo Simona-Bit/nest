@@ -1,0 +1,96 @@
+´úÂë1£º
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Scanner;
+import java.util.jar.Attributes.Name;
+
+public class Main{
+    public static void main(String[] args) {
+        Scanner scanner=new Scanner(System.in);
+        while(scanner.hasNext()){
+            int numPeople=scanner.nextInt();
+            int option=scanner.nextInt();
+            List<Student> stuList=new ArrayList<Student>();
+            for(int i=0;i<numPeople;i++){
+                stuList.add(new Student(scanner.next(), scanner.nextInt()));
+            }
+            //½µÐò
+            if(option==0) {
+                Collections.sort(stuList, new Comparator<Student>(){
+                    public int compare(Student o1,Student o2) {
+                        return o2.score-o1.score;
+                    }
+                });
+            }
+            else if(option==1)
+                //ÉýÐò
+            {
+                Collections.sort(stuList, new Comparator<Student>()  {
+                    public int compare(Student o1,Student o2){
+                        return o1.score-o2.score;
+                    }
+                });
+            }
+            for(int i=0;i<stuList.size();i++) {
+                System.out.println(stuList.get(i).name+" "+stuList.get(i).score);
+            }
+        }
+    }
+}
+class Student{
+    public String name;
+    public int score;
+    public Student(String name,int score) {
+        this.name=name;
+        this.score=score;
+    }
+}
+´úÂë2£º
+import java.util.Scanner;
+/**
+* ³É¼¨ÅÅÐò
+* @author special
+*/
+public class Main {
+    private static String[] names;
+    private static int[] grades;
+    private static boolean compare(int i, int j, int flag){
+        return flag == 0 ? grades[i] > grades[j] : grades[i] < grades[j];
+    }
+    private static void exch(int i, int j){
+        String tempS = names[j];
+        int tempG = grades[j];
+        names[j] = names[i];
+        grades[j] = grades[i];
+        names[i] = tempS; 
+        grades[i] = tempG;
+    }
+    public static void sort(int flag){
+        for(int i = 1; i < names.length; i++)
+            for(int j = i; j > 0 && compare(j,j - 1,flag); j--){
+                exch(j,j - 1);
+            }
+    }
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        Scanner input = new Scanner(System.in); 
+        while(input.hasNext()){
+            int n = input.nextInt();
+            int flag = input.nextInt();
+            names = new String[n];
+            grades = new int[n];
+            for(int i = 0; i < n; i++){
+                names[i] = input.next();
+                grades[i] = input.nextInt();
+            }            sort(flag); 
+            for(int i = 0; i < n; i++){
+                System.out.println(names[i] + " " + grades[i]);
+            }
+        } 
+    } 
+}

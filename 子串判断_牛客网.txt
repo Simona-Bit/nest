@@ -1,0 +1,29 @@
+ДњТы1ЃК
+import java.util.*;
+
+public class Substr {
+    public boolean[] chkSubStr(String[] p, int n, String s) {
+        boolean[] res = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            res[i] = s.contains(p[i]);
+        }
+        return res;
+    }
+}
+ДњТы2ЃК
+import java.util.*;
+public class Substr {
+    public boolean[] chkSubStr(String[] p, int n, String s) {
+        boolean[] res = new boolean[n];
+        for(int i=0;i<p.length;i++){
+            res[i] = isSubStr(p[i],s);
+        }
+        return res;
+    }
+    public boolean isSubStr(String sub,String s){
+        if(s.indexOf(sub) != -1)
+            return true;
+        else
+            return false;
+    }
+}
