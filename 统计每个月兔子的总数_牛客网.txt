@@ -1,0 +1,89 @@
+代码1:
+import java.util.Scanner;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNext()){
+            int input = sc.nextInt();
+            System.out.println(Main.getNumber(input));
+        }
+    }
+    //通过列举出每月的有生育能力兔子的数目，没有生能力的兔子的说目，一月大的兔子的数目和二月大的兔子的数目可知
+    public static int getNumber(int mounth){
+        if(mounth == 1 || mounth == 2){
+            return 1;
+        }
+        int tempold = 1;
+        int tempyoung = 1;
+        int mounth1 = 1;
+        int mounth2 = 0;
+        for(int j = 4; j <= mounth; j++){
+            //第一步，第二个月的变成了有生育能力的兔子
+            tempold += mounth2;
+            //第二步，一个月大的兔子变成了两个月大的兔子
+            mounth2 = mounth1;
+            //第三步，有生育能力的兔子生出了一个月大的小兔子
+            mounth1 = tempold;
+            //当月小兔子的个数
+            tempyoung = mounth1 + mounth2;
+        }
+        return tempold + tempyoung;
+    }
+}
+代码2：
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            int monthCount = in.nextInt();
+            System.out.println(getTotalCount(monthCount));
+        }
+        in.close();
+    }
+    public static int getTotalCount(int monthCount){
+        if(monthCount==1 || monthCount==2){
+            return 1;
+        }
+        return getTotalCount(monthCount-1)+getTotalCount(monthCount-2);
+    }
+}
+代码3：
+import java.util.*;
+public class Main {
+    public static int get(int month){
+        if(month <= 0)
+            return 0;
+        if(month == 1 || month == 2)
+            return 1;
+        else
+            return get(month - 1) + get(month - 2);
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNext()){
+            int month = sc.nextInt();
+            System.out.println(get(month)); 
+        }
+        sc.close();
+    }
+}
+代码4：
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNext()) {
+            int n = sc.nextInt();
+            int month1 = 1;//1个月兔子
+            int month2 = 0;//2个月兔子
+            int month3 = 0;//3个月兔子
+            while(--n>0) {
+                month3 += month2;
+                month2 = month1;
+                month1 = month3;
+            }
+            System.out.println(month1+month2+month3);
+        }
+    }
+}

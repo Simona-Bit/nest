@@ -1,0 +1,109 @@
+代码1：
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNext()){
+            char[] sw=new char[130];
+            String str1="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            String str2="VWXYZABCDEFGHIJKLMNOPQRSTU";
+            for(int i=0;i<str1.length();i++){
+                sw[str1.charAt(i)]=str2.charAt(i);
+            }
+            String str=sc.nextLine();
+            String result="";
+            for(int i=0;i<str.length();i++){
+                if(str.charAt(i)==' '){
+                    result+=" ";
+                }else{
+                    result+=sw[str.charAt(i)];
+                }
+            }
+            System.out.println(result);
+        }
+    }
+}
+代码2：
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            String str=in.nextLine();
+            char[] arr = str.toCharArray();
+            int len=str.length();
+            StringBuffer sb=new StringBuffer();
+            for(int i = 0; i < len; i++) {
+                char c=arr[i];
+                if(c!=' '){
+                    if(c>'E'){
+                        c=(char)((int)c-5);
+                    }
+                    else{
+                        c=(char)((int)c-65+86);
+                    }
+                }
+                sb.append(c);
+            }
+            System.out.println(sb.toString());
+        }
+    }
+}
+代码3：
+import java.util.*;
+public class Main{
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            String CHTStr = in.nextLine();
+            System.out.println(GetClearCode(CHTStr));
+        }
+    }
+    //HELLO WORLD SNHJ  密文
+    //CZGGJ RJMGY NICE  明文
+    public static String GetClearCode(String str){ 
+        Map<Character,Character> map = new HashMap<>();
+        List<Character> chr = new ArrayList<>();
+        for (int i = 0; i <26 ; i++) {
+            chr.add((char)(65+i));
+        }
+        //将密文与明文之间的对应关系保存在一个Map集合里
+        for (int i = 0; i <chr.size() ; i++) {
+            if(i <5){
+                map.put(chr.get(i),(char)(chr.get(i)+21));
+            }else { 
+                map.put(chr.get(i),(char)(chr.get(i)-5));
+            }
+        }
+        char[] ch = str.toCharArray();
+        for (int i = 0; i <ch.length; i++) {
+            if(map.containsKey(ch[i])){ 
+                ch [i] = map.get(ch [i]);
+            }
+        }
+        return new String(ch);
+    }
+}
+代码4：
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()) {
+            String value = sc.nextLine();
+            char[] chars = value.toCharArray();
+            for (int i = 0; i < chars.length; i++) {
+                char c = chars[i];
+                if ('A' <= c) {
+                    //密码字母：A B C D E   F G H I J K L M N O P Q R S T U V W X Y Z
+                    //原文字母：V W X Y Z   A B C D E F G H I J K L M N O P Q R S T U
+                    //比如: F -> A  => F - 5
+                    //比如：B -> W  => B + 21
+                    c = (char) ('E' < c ? (c - 5) : (c + 21));
+                    chars[i] = c;
+                }
+            }
+            System.out.println(new String(chars));
+        }
+    }
+}
