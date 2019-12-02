@@ -1,0 +1,116 @@
+代码1：
+import java.util.*;
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Plus {
+    public ListNode plusAB(ListNode a, ListNode b) {
+        ListNode resultHead = new ListNode(-1);
+        ListNode resultCurrent = resultHead;
+        int addToNextDigit = 0;
+        while (a != null || b != null || addToNextDigit != 0) {
+            int aVal = a != null ? a.val : 0;
+            int bVal = b != null ? b.val : 0;
+            int sum = aVal + bVal + addToNextDigit;
+            int nodeDigit = sum % 10;
+            addToNextDigit = sum / 10; 
+            resultCurrent.next = new ListNode(nodeDigit);
+            resultCurrent = resultCurrent.next;
+            a = a != null ? a.next : null;
+            b = b != null ? b.next : null;
+        }
+        return resultHead.next;
+    }
+}
+代码2：
+import java.util.*;
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Plus {
+    public ListNode plusAB(ListNode a, ListNode b) {
+       if(a == null || b == null){
+           return null;
+       }
+        int add = 0;
+        ListNode head = new ListNode(-1);
+        ListNode resCur = head;
+        ListNode curA = a;
+        ListNode curB = b; 
+        while(curA != null || curB != null){ 
+            if(curA != null && curB !=null){ 
+                resCur.next = new ListNode((curA.val+curB.val+add)%10);
+                resCur = resCur.next;
+                add = (curA.val+curB.val+add)/10; 
+                curA = curA.next; 
+                curB = curB.next; 
+            }else if(curA != null){
+                resCur.next = new ListNode((curA.val+add)%10);
+                resCur = resCur.next;
+                add = (curA.val+add)/10; 
+                curA = curA.next;
+            }else{ 
+                resCur.next = new ListNode((curB.val+add)%10);
+                resCur = resCur.next;
+                add = (curB.val+add)/10;
+                curB = curB.next;
+            }
+        }
+        if(add > 0){
+            resCur.next = new ListNode(add);
+            resCur = resCur.next;
+        }
+        return head.next;
+    }
+}
+代码3：
+import java.util.*;
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Plus {
+    public ListNode plusAB(ListNode a, ListNode b) {
+       if (a == null) {
+           return b;
+       }
+       if (b == null) {
+           return a;
+       }
+       ListNode p1 = a, p2 = b;
+       ListNode head = new ListNode(0);
+       ListNode p = head; 
+       int sum = 0;
+       while (p1 != null || p2 != null || sum != 0) {
+           if (p1 != null) {
+               sum += p1.val;
+               p1 = p1.next;
+           }
+           if (p2 != null) {
+               sum += p2.val;
+               p2 = p2.next;
+           }
+           p.next = new ListNode(sum % 10);
+           sum /= 10;
+           p = p.next;
+       }
+       return head.next;
+    }
+}
