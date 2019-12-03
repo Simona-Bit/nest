@@ -1,0 +1,101 @@
+代码1：
+import java.util.*;
+
+/*
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+    public TreeNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Balance {
+    public boolean isBalance(TreeNode root) {
+        if(root==null){
+            return true;
+        }else{
+            int left = getDeep(root.left);
+            int right = getDeep(root.right);
+            if(Math.abs(left-right)<=1){
+                return isBalance(root.left)&&isBalance(root.right);
+            }else{
+                return false;
+            }
+        }    
+    }
+    public int getDeep(TreeNode root){
+        if(root!=null){
+            int left = getDeep(root.left);
+            int right = getDeep(root.right);
+            return left>right?left+1:right+1;
+        }else{
+            return 0;
+        }
+    }
+}
+代码2：
+import java.util.*;
+
+/*
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+    public TreeNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Balance {
+    public boolean isBalance(TreeNode root) {
+        if(root==null)
+            return true;
+        if(Math.abs(deepth(root.left)-deepth(root.right))>1)
+            return false;
+        else
+            return isBalance(root.left)&isBalance(root.right);
+    }
+    public int deepth(TreeNode root){
+        if(root==null)
+            return 0;
+        return Math.max(deepth(root.left),deepth(root.right))+1;
+    }
+}
+代码3：
+import java.util.*;
+
+/*
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+    public TreeNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Balance {
+    public boolean isBalance(TreeNode root) {
+        int[] depth = {0};
+        boolean res = isBalance(root, depth);
+        return res;
+    }
+    public static boolean isBalance(TreeNode root, int[] depth) {
+        //数组仅一个值，为了传引用
+        if(root == null){
+            depth[0] = 0;
+            return true;
+        }
+        int[] ldep = {depth[0]};
+        int[] rdep = {depth[0]};
+        if(isBalance(root.left, ldep) && isBalance(root.right, rdep)){
+            int[] diff = new int[1];
+            int dif = ldep[0]-rdep[0];
+            diff[0] = dif;
+            if(diff[0] >= -1 && diff[0] <= 1){
+                depth[0] = (ldep[0] > rdep[0] ? ldep[0] : rdep[0]) + 1;
+                return true;
+            }
+        }
+        return false;
+    }
+}
