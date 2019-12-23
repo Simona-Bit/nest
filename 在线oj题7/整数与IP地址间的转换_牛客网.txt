@@ -1,0 +1,157 @@
+代码1:
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNext()){
+            String ip=sc.next();
+            String num=sc.next();
+            System.out.println(ipToNum(ip));
+            System.out.println(numToIp(num));
+        }
+    }
+    //数字转ip
+    public static String numToIp(String num){
+        String bin=Long.toBinaryString(Long.parseLong(num));
+        bin="00000000000000000000000000000000"+bin;
+        bin=bin.substring(bin.length()-32);
+        StringBuffer sb=new StringBuffer();
+        for(int i=0;i<4;i++){
+            String temp=bin.substring(i*8,(i+1)*8);
+            if(i!=3)
+                sb.append(Integer.parseInt(temp,2)+".");
+            else
+                sb.append(Integer.parseInt(temp,2));
+        }
+        return sb.toString();}
+    //ip转数字
+    public static long ipToNum(String ip){
+        String[] sp=ip.split("\\.");
+        StringBuffer sb=new StringBuffer();
+        for(int i=0;i<sp.length;i++){
+            int temp=Integer.parseInt(sp[i]);
+            String merge="00000000"+Integer.toBinaryString(temp);
+            merge=merge.substring(merge.length()-8);
+            sb.append(merge);
+        }
+        return Long.parseLong(sb.toString(),2);
+    } 
+}
+
+
+代码2:
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNextLine()) {
+            String binIP = sc.nextLine();
+            // IP 的十进制形式会大于 Integer.MAX_VALUE，所以应当定义为 long 类型
+            long decIP = Long.parseLong(sc.nextLine());
+            // 遇到的问题，数组越界，输入格式不正确，应都为 String 输入；
+            // int 型溢出，要换为 long 型
+            System.out.println(binToDec(binIPToBin(binIP)));
+            System.out.println(decToBinIP(decIP));
+        }
+        sc.close();
+    }
+    public static long binToDec(String bin) {
+        long dec = 0;
+        int binLen = bin.length();
+        for (int i = 0; i < bin.length(); i++) {
+            int num = Integer.parseInt(bin.charAt(i) + "");
+            dec += num * Math.pow(2, binLen - 1 - i);
+        }
+        return dec;
+    }
+    // 用来处理形如 10.0.***3 这种 IP 地址形式里面摘出来
+    // 的小部分数字，如：10、0、***3 这种数字
+    // dec:1 -> bin:00000001
+    public static String decToBin(long dec) {
+        StringBuilder sb = new StringBuilder();
+        // 用来标记传入的十进制数字是 x.x.x.x（这种情况中 x <= 255）
+        // 中的 x 还是 ip 地址的十进制表示
+        // 默认 flag 为 false，表示传入的为上述表述中的 x
+        boolean flag = false;
+        if (dec > 255) {
+            flag = true;
+        }
+        while (dec != 0) { 
+            int i = (int) (dec % 2);
+            dec >>= 1;
+            sb.append(i);
+        }
+        if (flag) {
+            while (sb.length() < 32) {
+                sb.append("0");
+            }
+        } else {
+            while (sb.length() < 8) {
+                sb.append("0");
+            }
+        }
+        return sb.reverse().toString();
+    }
+    public static String decToBinIP(long dec) {
+        String bin = decToBin(dec);
+        String[] splitedBin = new String[4];
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < splitedBin.length; i++) {
+            splitedBin[i] = bin.substring(i * 8, (i + 1) * 8);
+            sb.append(binToDec(splitedBin[i])).append(".");
+        }
+        // 这一步生成的 ip 形如：10.0.***3. 注意，末尾有一个点
+        String ip = sb.toString();
+        // 去掉最后的一个点
+        return ip.substring(0, ip.length() - 1);
+    }
+    public static String binIPToBin(String binIP) {
+        String[] splited = binIP.split("\\.");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < splited.length; i++) {
+            String binCode = decToBin(Integer.parseInt(splited[i]));
+            sb.append(binCode);
+        }
+        return sb.toString();
+    }
+}
+
+代码3:
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            String ip = in.nextLine();
+            String ns = in.nextLine();
+            System.out.println(changeten(ip));
+            System.out.println(changeip(ns));
+        }
+    }
+    public static long changeten(String ip){ 
+        String[] ipnum = ip.split("\\.");
+        StringBuffer sb = new StringBuffer();
+        for(int i=0;i < ipnum.length;i++){
+            String temp = Integer.toBinaryString(Integer.parseInt(ipnum[i]));
+            while(temp.length()!=8 && i!=0){
+                temp = "0"+temp;
+            }
+            sb.append(temp);
+        }
+        return Long.parseLong(sb.toString(),2);
+    }
+    public static String changeip(String ns){
+        long num = Long.parseLong(ns);
+        String ip = Long.toBinaryString(num);
+        StringBuffer sb = new StringBuffer();
+        while(ip.length()%8!=0){
+            ip = "0"+ip;
+        }
+        for(int i=0;i < ip.length();i+=8){
+            String temp = ip.substring(i,i+8);
+            sb.append(Long.parseLong(temp,2)+".");
+        }
+        return sb.toString().substring(0,sb.toString().length()-1);
+    }
+}
