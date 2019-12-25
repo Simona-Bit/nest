@@ -1,0 +1,42 @@
+public class Foo {
+    Object object = new Object();   //只有获得该对象的锁才能进行下步操作
+    private static volatile int a = 0;  // 屏蔽1
+    private static volatile int b = 0;  // 屏蔽2
+
+    public Foo() {
+
+    }
+
+    public void first(Runnable printFirst) throws InterruptedException {
+        synchronized (object){
+            printFirst.run();
+            a = 1;
+            object.notify();
+        }
+
+    }
+
+    public void second(Runnable printSecond) throws InterruptedException {
+        // printSecond.run() outputs "second". Do not change or remove this line.
+        synchronized (object){
+            while (a == 0){
+                object.wait();  // 放弃锁资源
+            }
+            printSecond.run();
+            b = 1;
+            object.notify();
+        }
+    }
+
+    public void third(Runnable printThird) throws InterruptedException {
+
+        // printThird.run() outputs "third". Do not change or remove this line.
+        synchronized (object){
+            if (b == 0)
+                object.wait();// 放弃锁资源
+            printThird.run();
+            b = 1;
+            object.notify();
+        }
+    }
+}
