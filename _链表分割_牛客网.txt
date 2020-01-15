@@ -1,0 +1,80 @@
+代码1:
+import java.util.*;
+
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Partition {
+    public ListNode partition(ListNode pHead, int x) {
+        //将原链表分为两个集合
+        //小于x的集合和大于等于x的集合
+        ArrayList<Integer> l1=new ArrayList<>();  //动态整型数组
+        ArrayList<Integer> l2=new ArrayList<>();
+        ListNode cur=pHead;
+        while(cur!=null)
+        {
+            if(cur.val<x)
+                l1.add(cur.val);  //小的元素方l1集合
+            else
+                l2.add(cur.val);  //大的元素方l2集合
+            cur=cur.next;
+        }
+        l1.addAll(l2);//把集合l2的元素添加在集合l1后面
+        //将链表中数据按照集合l1顺序进行替换
+        pHead.val=l1.get(0);
+        cur=pHead.next;
+        for(int i=1;i<l1.size();i++)
+        {
+            cur.val=l1.get(i);
+            cur=cur.next;         
+        }
+        return pHead;
+    }
+}
+
+代码2：
+import java.util.*;
+
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Partition {
+    public ListNode partition(ListNode pHead, int x) {
+        if(pHead == null || pHead.next == null){
+            return pHead;
+        }
+        ListNode cur = pHead; 
+        ListNode Shead = new ListNode(-1);
+        ListNode Bhead = new ListNode(-1);
+        ListNode Stmp = Shead;
+        ListNode Btmp = Bhead;
+        while(cur != null){
+            if(cur.val < x){
+                Stmp.next = new ListNode(cur.val);
+                Stmp = Stmp.next;
+            }else{
+                Btmp.next = new ListNode(cur.val);
+                Btmp = Btmp.next;
+            }
+            cur = cur.next;
+        }
+        cur = Shead;
+        while(cur.next != null && cur.next.val != -1){
+            cur = cur.next;
+        }
+        cur.next = Bhead.next;
+        return Shead.next;
+    }
+}
