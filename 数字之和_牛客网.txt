@@ -1,0 +1,68 @@
+代码1：
+import java.util.Scanner;
+public class Main{
+    public static void main(String[] s){
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNext()){
+            int a=sc.nextInt();
+            if(a==0){
+                break;
+            }
+            test(a);
+        }
+    }
+    public static void test(int a){
+        //先考虑输出各位数字之和
+        int sum1=0,sum2=0;
+        int temp=a;
+        while(temp>0){
+            sum1+=temp%10;
+            temp/=10;
+        }
+        System.out.print(sum1+" "); 
+        //在考虑它的平方的数的各位和
+        int b=a*a; 
+        while(b>0){ 
+            sum2+=b%10;
+            b/=10;
+        }
+        System.out.println(sum2);
+    }
+}
+
+代码2：
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+public class Main {
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()) {
+            int num = sc.nextInt();
+            long num2 = num * num;
+            int he1 = 0;
+            double he2 = 0;
+            int j = 0;
+            int k = 0; 
+            List<Integer> list = new ArrayList<>(); 
+            List<Long> list1 = new ArrayList<>();
+            for (int i = num; i > 0; i = i / 10) {
+                int jieshou = i % 10;
+                i = i - jieshou;
+                list.add(jieshou); 
+            }
+            for (int i = 0; i < list.size(); i++) {
+                he1 += list.get(i);
+            } 
+            for (long i = num2; i > 0; i = i / 10) {
+                long jieshou2 = i % 10;
+                i = i - jieshou2;
+                list1.add(jieshou2);
+            }
+            for (int i = 0; i < list1.size(); i++) { 
+                he2 += list1.get(i); 
+            } 
+            System.out.printf("%d %.0f", he1, he2);
+        }
+    }
+}
