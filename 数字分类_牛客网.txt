@@ -1,0 +1,208 @@
+代码1：
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+import java.text.DecimalFormat;
+import java.util.Collections;
+public class Main{
+    public static void main(String[] args){
+        int i = 0;
+        int sum;
+        int countA2 = 0;
+        int countA4 = 0;
+        int countA5 = 0;
+        int A1 = 0;
+        int A2 = 0;
+        int A3 = 0;
+        double A4 = 0;
+        int A5 = 0;
+        List<Integer> list = new ArrayList<Integer>();
+        Scanner input = new Scanner(System.in);
+        sum = input.nextInt();
+        int[] array = new int[sum];
+        while(i<sum){
+            array[i] = input.nextInt();
+            i++;
+        }
+        // Arrays.sort(array);
+        for(int j=0;j<array.length;j++){
+            int r = array[j]%5;
+            switch(r){
+                case 0:{
+                    if(array[j]%2==0){
+                        A1+= array[j];
+                    }
+                    break;
+                }
+                case 1:{
+                    A2 += (((countA2%2==0)?(1):(-1))*array[j]);
+                    countA2++;
+                    break;
+                }
+                case 2:{
+                    A3 ++;
+                    break;
+                }
+                case 3:{
+                    A4 += array[j];
+                    countA4++;
+                    break;
+                }
+                case 4:{
+                    list.add(array[j]);
+                    A5 = list.get(countA5);
+                    countA5++;
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+        if(A1 == 0){
+            System.out.print("N"+" ");
+        }else{
+            System.out.print(A1+" ");
+        }
+        if(A2 == 0){
+            System.out.print("N"+" "); 
+        }else{
+            System.out.print(A2+" ");
+        }
+        if(A3 == 0){
+            System.out.print("N"+" ");
+        }else{
+            System.out.print(A3+" ");
+        }
+        if(A4 == 0){
+            System.out.print("N"+" ");
+        }else{
+            DecimalFormat df = new DecimalFormat("#.0");
+            System.out.print(df.format(A4/countA4)+" ");
+        }
+        if(A5 == 0){
+            System.out.print("N");
+        }else{
+            A5 = Collections.max(list);
+            System.out.print(A5);
+        }
+    }
+}
+
+代码2：
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        int n, num;
+        int a1, a2, a3, a4, a4Count, a5;
+        a1 = a2 = a3 = a4 = a4Count = 0;
+        a5 = Integer.MIN_VALUE;
+        boolean a2Add = true;
+        Scanner scanner = new Scanner(System.in);
+        n = scanner.nextInt();
+        for (int i = 0; i < n; i++) {
+            num = scanner.nextInt();
+            if (num % 5 == 0 && num % 2 == 0) {
+                a1 += num;
+            }
+            if (num % 5 == 1) {
+                if (a2Add) {
+                    a2 += num;
+                } else {
+                    a2 -= num;
+                }
+                a2Add = !a2Add;
+            }
+            if (num % 5 == 2) {
+                a3++;
+            }
+            if (num % 5 == 3) {
+                a4 += num;
+                a4Count++;
+            }
+            if (num % 5 == 4) {
+                if (num > a5) {
+                    a5 = num;
+                }
+            }
+        }
+        scanner.close();
+        System.out.print(a1 != 0 ? a1 + " " : "N ");
+        System.out.print(a2 != 0 ? a2 + " " : "N ");
+        System.out.print(a3 != 0 ? a3 + " " : "N ");
+        if (a4Count == 0) {
+            System.out.print("N ");
+        }else {
+            System.out.printf("%.1f ",1.0 * a4 / a4Count);
+        }
+        System.out.print(a5 != Integer.MIN_VALUE ? a5 : "N");
+    }
+}
+
+代码3：
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        int[] a = new int[5];
+        boolean[] f = new boolean[5];
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int j = 0;
+        int n2 = 0;
+        int n4 = 0;
+        while (j++ < n) {
+            int i = sc.nextInt();
+            int r = i % 5;
+            switch (r) {
+                case 0:
+                    if (i % 2 == 0) {
+                        f[0] = true;
+                        a[0] += i;
+                    }
+                    break;
+                case 1:
+                    f[1] = true;
+                    if (++n2 % 2 == 0) {
+                        a[1] -= i;
+                    } else {
+                        a[1] += i; 
+                    }
+                    break;
+                case 2:
+                    f[2] = true;
+                    a[2]++;
+                    break;
+                case 3:
+                    f[3] = true;
+                    a[3] += i;
+                    n4++;
+                    break;
+                case 4:
+                    f[4] = true;
+                    a[4] = Math.max(a[4], i); 
+                    break;
+                default:
+                    break;
+            }
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < 5; i++) {
+            if (f[i] == false) {
+                sb.append("N");
+            } else {
+                if (i != 3) {
+                    sb.append(a[i]);
+                } else {
+                    DecimalFormat df = new DecimalFormat("0.0");
+                    df.setRoundingMode(RoundingMode.HALF_UP);
+                    sb.append(df.format(((double) a[3]) / n4));
+                }
+            }
+            sb.append(" ");
+        }
+        sb.deleteCharAt(sb.length()-1);
+        System.out.println(sb.toString());
+    }
+}
