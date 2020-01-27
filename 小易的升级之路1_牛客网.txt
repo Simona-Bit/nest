@@ -1,0 +1,152 @@
+代码1：
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        //先构造对应的输入输出格式
+        Scanner scanner=new Scanner(System.in);
+        //获取输入判断
+        while(scanner.hasNext()){
+            //初始化
+            int n=scanner.nextInt();
+            int init=scanner.nextInt();
+            int[] monster=new int [n];
+            for(int i=0;i<n;i++) {
+                //获取对应的数值
+                monster[i]=scanner.nextInt();
+                if(init>monster[i]) {
+                    init+=monster[i];
+                }else{
+                    //这时候一定monster大
+                    init+=GetGYS(init,monster[i]); 
+                }
+            }
+            System.out.println(""+init);
+        } 
+        //关闭scanner 
+        scanner.close();
+    }
+    //获取对应最大公约数
+    public static int GetGYS(int n,int m)    {
+        if(m%n==0)
+            return n;
+        else{
+            return GetGYS(m%n,n);
+        }
+    }
+}
+
+代码2：
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNextInt()) {
+            Integer monsterCount = scanner.nextInt();
+            Integer initialPower = scanner.nextInt();
+            Integer currentPower = initialPower;
+            for (int i = 0; i < monsterCount; i++) {
+                Integer defensivePower = scanner.nextInt();
+                if (defensivePower <= currentPower) {
+                    currentPower += defensivePower;
+                } else {
+                    currentPower += Main.getGreatestCommonDivisor(currentPower, defensivePower);
+                }
+            }
+            System.out.println(currentPower);
+        }
+        scanner.close();
+    }
+    private static Integer getGreatestCommonDivisor(Integer firstNum, Integer secondNum) {
+        if (firstNum < secondNum) {
+            int temp;
+            temp = firstNum;
+            firstNum = secondNum;
+            secondNum = temp;
+        }
+        if (0 == secondNum) {
+            return firstNum;
+        }
+        return Main.getGreatestCommonDivisor(secondNum, firstNum % secondNum);
+    }
+}
+
+代码3：
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNext()){
+            int a=sc.nextInt(); //a表示怪物的数量
+            int b=sc.nextInt(); //b表示小易的初始化能力
+            int[] arr=new int[a];
+            for(int i=0;i<a;i++){
+                arr[i]=sc.nextInt(); //用数组arr把每个怪物的防御力记录下来
+            }
+            for(int i=0;i<arr.length;i++){
+                if(b>=arr[i]){//如果能力大于等于怪物防御力，则直接加 
+                    b+=arr[i];
+                }else {
+                    b+=maxCommon1(arr[i],b);//如果能力小于怪物防御力，则直接加上它们的最大公约数
+                    // b+=maxCommon2(arr[i],b);
+                    // b+=maxCommon3(arr[i],b);
+                }
+            }
+            System.out.println(b);
+        }
+    }
+    //求最大公约数方法1：穷举法 
+    private static int maxCommon1(int a,int b){
+        if(a<b){ //如果a<b，先把ab交换，方便以后操作
+            int tmp=a;
+            a=b;
+            b=tmp;
+        } 
+        //如果b能直接整除a，说明b是它们的最大公约数
+        if(a%b==0){
+            return b;
+        }
+        //否则从小的开始依次整除，当a和b同时能整除那个数的时候说明就是它们的最大公约数
+        for(int i=b-1;i>1;i--){
+            if(a%i==0&&b%i==0){
+                return i;
+            }
+        } 
+        return 1; //说明除完还没有找到，只能返回1
+    }
+    //求最大公约数方法2：辗转相减法
+    /*
+    *两个数，相等时，最大公约数为他们其中任意一个。
+    不相等时，用大数减小数。得到的差和之前的那个小数再次相减，
+    直到两个数相等，这两个中，任意一个都是最大公约数。
+    */
+    private static int maxCommon2(int a,int b){
+        while((a-b)!=0){
+            if(a>b){
+                a=a-b;
+            }else {
+                b=b-a;
+            }
+        } 
+        return b; 
+    }
+    //求最大公约数方法3：辗转相除法
+    /**
+    * 用大数对小数求余，若余数为0，则除数为最大公约数。
+    * 若余数不为0，将此余数作为除数，小数作为被除数，重新求余，直到余数为0为止。
+    * 此时的最大公约数为余数。例如：27和6.  27%6=3,6%3=0.所以最大公约数为3.
+    */
+    private static int maxCommon3(int a,int b){
+        if(a<b){ //如果a<b，先把ab交换，方便以后操作
+            int tmp=a;
+            a=b;
+            b=tmp; 
+        }
+        int n=a%b;
+        while(a%b!=0){
+            a=b;
+            b=n;
+            n=a%b; 
+        }
+        return b;
+    }
+}
