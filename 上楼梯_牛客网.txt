@@ -1,0 +1,14 @@
+import java.util.*;
+
+public class GoUpstairs {
+    public int countWays(int n) {
+        int[] array = new int[100001];
+        array[1]=1;
+        array[2]=2;
+        array[3]=4;
+        for(int i = 4; i <= 100000; i++){
+            array[i] = ((array[i-1]+array[i-2])%1000000007 + array[i-3])%1000000007;
+        }
+        return array[n];
+    }
+}
