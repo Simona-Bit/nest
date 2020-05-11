@@ -1,0 +1,89 @@
+import java.util.*;
+public class Main{
+     
+    public static void main(String args[]){
+        Scanner scan =new Scanner(System.in);
+        int n = scan.nextInt();
+        int m = scan.nextInt();
+        PriorityQueue<Integer> tableHeap = new PriorityQueue<>();
+        PriorityQueue<Guest> minHeap = new PriorityQueue<>();
+        MaxHeap<Guest> maxHeap = new MaxHeap<Guest>();
+        for(int i = 0;i<n;i++){
+            tableHeap.offer(scan.nextInt());
+        }
+        for(int i=0;i<m;i++){
+            minHeap.offer(new Guest(scan.nextInt(),scan.nextInt()));
+        }
+        long sum = 0l;
+        for(int i = 0;i<n;i++){
+            int tableCap = tableHeap.poll();
+            while(minHeap.peek()!=null&&minHeap.peek().num<=tableCap){
+                Guest guest = minHeap.poll();
+                guest.setComparable(guest.compFees);
+                maxHeap.offer(guest);
+            }
+            Guest guest = (Guest)maxHeap.poll();
+            if(guest==null){
+                  continue;
+            }
+               
+            sum+=guest.fees;
+        }
+        System.out.print(sum);
+         
+    }
+}
+class MaxHeap<T extends Comparable> extends PriorityQueue{
+ 
+ 
+    MaxHeap (){
+        super(new Comparator<T>() {
+            @Override
+            public int compare(T o1, T o2) {
+                return -o1.compareTo(o2);
+            }
+        });
+    }
+ 
+}
+ 
+class Guest implements Comparable{
+    Comparable compNum =  new CompNum();
+    Comparable compFees = new CompFees();
+    Comparable comparable =compNum;
+    int num;
+    int fees;
+     
+    Guest(int num ,int fees){
+        this.num = num;
+        this.fees = fees;
+    }
+     
+    public void setComparable(Comparable comparable) {
+        this.comparable = comparable;
+    }
+ 
+ 
+ 
+    @Override
+    public int compareTo(Object o) {
+       return comparable.compareTo(o);
+    }
+     
+     
+     
+     class  CompNum implements Comparable<Guest>{
+ 
+            @Override
+            public int compareTo(Guest o) {
+                return Guest.this.num-o.num;
+            }
+        }
+        class CompFees implements Comparable<Guest>{
+ 
+            @Override
+            public int compareTo(Guest o) {
+                return Guest.this.fees-o.fees;
+            }
+        }
+}
